@@ -1,0 +1,117 @@
+<title>event360 UZ Kullanım Rehberi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: sol sabit rol menüsü + sağda iş akışı sırasıyla rol bölümleri; her ekran = video + numaralı adımlar */
+:root{--bg:#ffffff;--bg2:#eef6fb;--card:#ffffff;--ink:#0b2545;--ink2:#4a5d73;--line:#d9e6ef;--acc:#2b8fb8;--accs:#e3f1f8;--f:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1626;--bg2:#0f2136;--card:#11243a;--ink:#e6eef8;--ink2:#9fb3c8;--line:#22384f;--acc:#4fb0d8;--accs:#15344b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0a1626;--bg2:#0f2136;--card:#11243a;--ink:#e6eef8;--ink2:#9fb3c8;--line:#22384f;--acc:#4fb0d8;--accs:#15344b;color-scheme:dark}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{background:linear-gradient(180deg,var(--bg) 0,var(--bg2) 420px,var(--bg2));background-attachment:fixed;color:var(--ink);font:15px/1.55 var(--f);margin:0}
+a{color:var(--acc)}
+.app{display:grid;grid-template-columns:250px minmax(0,1fr);max-width:1320px;margin:0 auto;gap:28px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+aside{position:sticky;top:env(safe-area-inset-top,0px);align-self:start;padding-block:24px;max-height:100vh;overflow:auto}
+.logo{font-weight:800;font-size:1.1rem;letter-spacing:-.01em}.logo b{color:var(--acc)}
+.logo small{display:block;font-weight:600;font-size:.75rem;color:var(--ink2);letter-spacing:.04em;text-transform:uppercase;margin-top:2px}
+nav{display:flex;flex-direction:column;gap:2px;margin-top:20px}
+nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;text-decoration:none;color:var(--ink);font-weight:600;font-size:.88rem}
+nav a:hover,nav a.on{background:var(--accs)}nav a.on{color:var(--acc)}
+nav .dot{width:9px;height:9px;border-radius:50%;flex:none}
+nav .sep{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink2);margin:14px 10px 4px;font-weight:700}
+main{padding-block:28px 64px;min-width:0}
+.hero{display:grid;gap:10px;max-width:760px}
+.eb{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
+h1{font-size:2.1rem;line-height:1.15;margin:0;letter-spacing:-.02em;text-wrap:balance}
+.lead{color:var(--ink2);margin:0;max-width:65ch}
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.rule{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.rule b{display:block;font-size:.9rem;margin-bottom:4px}.rule span{color:var(--ink2);font-size:.84rem}
+.flow{margin-top:26px;overflow-x:auto}
+.flow ol{list-style:none;display:flex;gap:6px;padding:0;margin:0;min-width:max-content}
+.flow li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:.78rem;min-width:118px}
+.flow li b{display:block;font-size:.82rem}
+.flow .rr{display:flex;gap:3px;margin-top:5px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:700;border-radius:99px;padding:2px 8px;background:var(--accs);color:var(--ink);text-decoration:none}
+.chip i{width:7px;height:7px;border-radius:50%}
+section.role{margin-top:46px;scroll-margin-top:16px}
+.rh{display:flex;gap:14px;align-items:flex-start;border-bottom:1px solid var(--line);padding-bottom:12px}
+.rh .av{width:42px;height:42px;border-radius:12px;color:#fff;display:grid;place-items:center;font-weight:800;flex:none}
+.rh h2{margin:0;font-size:1.35rem;letter-spacing:-.01em}.rh p{margin:2px 0 0;color:var(--ink2);font-size:.88rem;max-width:70ch}
+.rh .see{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:.78rem;color:var(--ink2)}
+.scr{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:20px;margin-top:20px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;scroll-margin-top:16px}
+.scr.hl{outline:3px solid var(--acc);outline-offset:2px}
+video{width:100%;aspect-ratio:16/10;border-radius:10px;background:#0b2545;display:block;max-width:100%}
+.scr h3{margin:4px 0 2px;font-size:1.08rem}
+.meta{font-size:.76rem;color:var(--ink2);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.scr ol{margin:12px 0 12px;padding-left:0;list-style:none;display:grid;gap:8px;counter-reset:s}
+.scr ol li{counter-increment:s;display:grid;grid-template-columns:24px 1fr;gap:8px;font-size:.88rem;cursor:pointer;border-radius:8px;padding:3px}
+.scr ol li:hover{background:var(--accs)}
+.scr ol li::before{content:counter(s);background:var(--ink);color:var(--bg);border-radius:7px;height:22px;display:grid;place-items:center;font-size:.72rem;font-weight:800}
+.open{display:inline-flex;gap:6px;align-items:center;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;font-size:.82rem;padding:7px 12px;border-radius:9px}
+.open:focus-visible,nav a:focus-visible,.chip:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.top{display:none}
+.flt{margin-top:22px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--accs);border-radius:12px;padding:10px 14px;font-size:.88rem}
+.flt a{font-weight:700}
+.ph2{margin-top:44px;display:flex;gap:12px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:10px;scroll-margin-top:16px}.ph2 b{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}.ph2 h2{margin:0;font-size:1.3rem;letter-spacing:-.01em}
+.no{display:inline-grid;place-items:center;min-width:30px;height:30px;border-radius:9px;background:var(--ink);color:var(--bg);font-weight:800;font-size:.85rem;margin-right:8px}
+.scr h3{display:flex;align-items:center}
+.rls{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.nx{margin-top:10px;font-size:.8rem;color:var(--ink2)}
+nav a .n{font-size:.72rem;color:var(--ink2);min-width:18px;font-variant-numeric:tabular-nums}
+footer{margin-top:50px;color:var(--ink2);font-size:.78rem;border-top:1px solid var(--line);padding-top:12px}
+@media (max-width:900px){.app{grid-template-columns:1fr}aside{display:none}.top{display:flex;gap:6px;overflow-x:auto;padding-block:10px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;margin:0 -4px}.top a{white-space:nowrap}.scr{grid-template-columns:1fr}.rules{grid-template-columns:1fr}h1{font-size:1.6rem}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+<div class="app">
+<aside><div class="logo">event<b>360</b> UZ<small>Kullanım rehberi · UZ-v13</small></div><nav id="nav"></nav></aside>
+<main>
+<div class="top" id="top"></div>
+<div class="hero">
+ <span class="eb">Fabriq ekibi için · 24 adım + 3 günlük ekran · 27 video</span>
+ <h1>event360 UZ kullanım rehberi</h1>
+ <p class="lead">Rehber bir etkinliğin baştan sona akışını izler: firma bilgilerinin girişiyle başlar, teklif, davet, program, lojistik, yayın, etkinlik günü ve sonuçla biter. Her adımın kimin işi olduğu rengiyle yazılı. Videonun altındaki maddeye tıklarsanız video o ana atlar.</p>
+</div>
+<div class="rules">
+ <div class="rule"><b>Role göre görürsünüz</b><span>Menü ve tutarlar rolünüze göre açılır. Kâr ve marjı yalnız patron görür.</span></div>
+ <div class="rule"><b>Program bitince “Kioska aktar”</b><span>Kiosk, katalog ve Telegram bot yalnız aktarılmış programı gösterir. Değişiklikte yeniden aktarın.</span></div>
+ <div class="rule"><b>Dışarıya yalnız dosya gider</b><span>Firmalar ve kuruluşlar sisteme girmez. Teklif, program ve rapor PDF/Excel olarak, seçilen dilde gider.</span></div>
+</div>
+<div class="flt" id="flt" hidden></div>
+<div id="roles"></div>
+<footer>Prototip örnek veriyle çalışır; kişi verisi, Telegram ve sosyal medya bağlantıları taklittir. Videolar UZ-v13 sürümünden kaydedildi. Prototip: <a href="https://claude.ai/artifact/U8g2RTYZf2k4CmZxa5LgjS" target="_blank" rel="noopener">event360 UZ</a></footer>
+</main></div>
+<script>
+const S=__DATA__;
+const P='https://claude.ai/artifact/U8g2RTYZf2k4CmZxa5LgjS#';
+const RL={sat:['Satış','#2b8fb8'],yon:['Yönetici','#0b2545'],cag:['Çağrı merkezi','#7a5bd0'],prg:['Program','#1f6fc5'],loj:['Lojistik','#139a83'],yay:['Yayın','#c27a12'],saha:['Saha','#c4473a'],fin:['Finans','#5b6b7d'],herkes:['Herkes','#2b8fb8']};
+const PH=[
+ ['Hazırlık ve satış','Firma bilgileri girilir, etkinlik açılır, teklif verilir.',[['uz-evren','sat'],['uz-etkinlik','sat'],['uz-teklif','sat','yon'],['uz-sponsor','sat']]],
+ ['Davet ve kayıt','Etkinlik kazanılınca firmalar aranır, rıza ve belgeler toplanır.',[['uz-cagri','cag'],['uz-riza','cag']]],
+ ['Program','Teyit veren firmalar eşleştirilir, gün akışı ve salon kurulur, kioska aktarılır.',[['uz-program','prg'],['uz-akis','prg'],['uz-mekan','prg','loj']]],
+ ['Lojistik ve gezi','Otel, yemek, ulaşım, gezi, rehber ve numune.',[['uz-lojistik','loj'],['uz-gezi','loj'],['uz-rehber','loj'],['uz-numune','loj']]],
+ ['Yayın ve tanıtım','Program aktarılınca katalog, bot, bülten ve sosyal medya güncellenir.',[['uz-katalog','yay'],['uz-telegram','yay'],['uz-bulten','yay'],['uz-medya','yay']]],
+ ['Etkinlik günü','Kiosk, giriş kartı, masalar ve acil durum.',[['uz-kiosk','saha','prg'],['uz-gun','saha'],['uz-acil','saha','loj']]],
+ ['Sonuç ve para','Sonuç formları, takip aramaları, tahsilat, rapor ve pano.',[['uz-sonuc','cag'],['uz-finans','fin'],['uz-rapor','fin','yon'],['uz-pano','yon']]],
+ ['Ek: her gün kullanılan ekranlar','Akışın her adımında açık duran ekranlar.',[['uz-ana','herkes'],['uz-gorev','herkes'],['uz-ekip','yon']]],
+];
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const rchip=r=>`<a class="chip" href="#rol-${r}"><i style="background:${RL[r][1]}"></i>${RL[r][0]}</a>`;
+const ALL=[];PH.forEach((p,pi)=>p[2].forEach(x=>ALL.push([...x,pi])));
+let n=0;const NO={};ALL.forEach(x=>{if(x[x.length-1]<PH.length-1)NO[x[0]]=++n});
+document.getElementById('nav').innerHTML=PH.map((p,pi)=>`<div class="sep">${pi<PH.length-1?(pi+1)+'. ':''}${p[0]}</div>`+p[2].map(x=>`<a href="#${x[0]}" data-k="${x[0]}"><span class="n">${NO[x[0]]||'·'}</span>${esc(S[x[0]].t)}</a>`).join('')).join('');
+document.getElementById('top').innerHTML=PH.slice(0,-1).map((p,pi)=>`<a class="chip" href="#faz-${pi}">${pi+1}. ${p[0]}</a>`).join('');
+document.getElementById('roles').innerHTML=PH.map((p,pi)=>`<div class="ph2" id="faz-${pi}"><b>${pi<PH.length-1?'Aşama '+(pi+1):'Ek'}</b><div><h2>${p[0]}</h2><span style="color:var(--ink2);font-size:.88rem">${p[1]}</span></div></div>`+
+ p[2].map(x=>{const k=x[0],s=S[k],rs=x.slice(1),ns=s.st.length,seg=s.sn/(ns+0.6),i=ALL.findIndex(y=>y[0]===k),nx=ALL[i+1]&&NO[k]?ALL[i+1][0]:null;
+ return `<article class="scr" id="${k}" data-r="${rs.join(' ')}"><video id="v-${k}" src="video/${k}.mp4" poster="kapak/${k}.jpg" controls preload="none" playsinline muted></video><div><h3>${NO[k]?`<span class="no">${NO[k]}</span>`:''}${esc(s.t)}</h3><div class="meta"><span>${s.sn} sn</span><span>${ns} madde</span></div><div class="rls">${rs.map(rchip).join('')}</div><ol>${s.st.map((t,j)=>`<li data-v="${k}" data-t="${(1.6+j*seg).toFixed(1)}">${esc(t)}</li>`).join('')}</ol><a class="open" href="${P}${k}" target="_blank" rel="noopener">Prototipte bu ekranı aç ↗</a>${nx&&NO[nx]?`<div class="nx">Sonraki adım: <a href="#${nx}">${NO[nx]}. ${esc(S[nx].t)}</a></div>`:''}</div></article>`}).join('')).join('');
+document.addEventListener('click',e=>{const li=e.target.closest('li[data-v]');if(!li)return;const v=document.getElementById('v-'+li.dataset.v);try{v.currentTime=+li.dataset.t;v.play().catch(()=>{})}catch(_){}});
+function go(){const h=location.hash.slice(1);const f=document.getElementById('flt');document.querySelectorAll('.scr.hl').forEach(x=>x.classList.remove('hl'));
+ const rr=h.startsWith('rol-')?h.slice(4):null;
+ document.querySelectorAll('.scr').forEach(x=>x.hidden=!!(rr&&!x.dataset.r.split(' ').includes(rr)&&!(rr!=='herkes'&&x.dataset.r==='herkes')));
+ document.querySelectorAll('.ph2').forEach(p=>{let e=p.nextElementSibling,any=false;while(e&&e.classList.contains('scr')){if(!e.hidden)any=true;e=e.nextElementSibling}p.hidden=!any});
+ if(rr&&RL[rr]){f.hidden=false;f.innerHTML=`${rchip(rr)}<span>Yalnız bu rolün adımları gösteriliyor, sıra aynı.</span><a href="#faz-0">Tüm akışı göster</a>`;scrollTo(0,0)}else f.hidden=true;
+ const el=h&&!rr&&document.getElementById(h);if(el){el.scrollIntoView({block:'start'});if(el.classList.contains('scr')){el.classList.add('hl');el.querySelector('video').preload='auto'}}
+ document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.dataset.k===h))}
+addEventListener('hashchange',go);go();
+document.querySelectorAll('video').forEach(v=>v.addEventListener('play',()=>document.querySelectorAll('video').forEach(o=>{if(o!==v)o.pause()})));
+</script>
