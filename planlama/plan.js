@@ -104,35 +104,12 @@ const PQ=[
   x:e=>T4('Her B2B eşleşmesi için 12 aylık takip açılır: 1. ay teşekkür, 3/6/9/12. ay arama; temas kaydı, sonuç türü (temsilcilik, distribütörlük, sipariş, ortak girişim) ve 6. ile 12. ay anketi.','Har bir B2B moslik uchun 12 oylik kuzatuv: 1-oy minnatdorchilik, 3/6/9/12-oy qoʻngʻiroq; aloqa yozuvi, natija turi va 6 hamda 12-oy soʻrovi.','Для каждой B2B-пары открывается 12-месячный план: 1-й месяц — благодарность, 3/6/9/12 — звонок; записи контактов, тип результата и опросы на 6 и 12 месяце.','A 12-month follow-up opens for every B2B match: thank-you in month 1, calls in months 3/6/9/12; contact log, outcome type (agency, distributorship, order, joint venture) and surveys at months 6 and 12.'),
   a:e=>[[PLB.fu,'1 · 3 · 6 · 9 · 12 '+T4('ay','oy','мес.','mo')[L]],[PLB.sv,'6 · 12 '+T4('ay','oy','мес.','mo')[L]]]}
 ];
-const PLX={ev:T4('Örnek etkinlik','Namuna tadbir','Пример мероприятия','Sample event'),stg:T4('Aşama','Bosqich','Этап','Stage'),ans:T4('Cevaplanan','Javoblangan','Отвечено','Answered'),nx:T4('Sıradaki soru','Keyingi savol','Следующий вопрос','Next question'),mine:T4('Sizin bekleyen sorunuz','Sizning kutayotgan savolingiz','Ваши ожидающие вопросы','Your open questions'),
- wait:T4('Bekliyor','Kutilmoqda','Ожидает','Waiting'),inst:T4('aşamasında','bosqichida','на этапе','at stage'),all:T4('Hepsi cevaplandı','Hammasi javoblangan','Все отвечены','All answered'),q:T4('soru','savol','вопр.','questions'),
- dn:T4('Cevaplı','Javoblangan','Отвечено','Answered'),open:T4('Ekranı aç','Ekranni ochish','Открыть экран','Open screen'),who:T4('Sorumlu','Masʼul','Ответственный','Owner'),nolock:T4('Rolünüz bu ekranı açmaz','Rolingiz bu ekranni ochmaydi','Ваша роль не открывает этот экран','Your role cannot open this screen'),
- jr:T4('Etkinlik yolculuğu','Tadbir yoʻli','Путь мероприятия','Event journey')};
-D.day={tr:'Gün',uz:'Kun',ru:'День',en:'Days'};
-let PLN={ev:'makine'};
+const PLX={intro:T4('Bir etkinliği baştan sona planlarken sorulacak sorular, sırayla. Aşamaya basın, soruyu ve örnek cevabı görün, ilgili ekrana geçin. Örnek: Makine ve Elektrik B2B.','Tadbirni boshidan oxirigacha rejalashtirishda beriladigan savollar, ketma-ket. Bosqichni bosing, savol va namuna javobni koʻring, kerakli ekranga oʻting. Namuna: Makine va Elektrik B2B.','Вопросы при планировании мероприятия от начала до конца, по порядку. Нажмите на этап, чтобы увидеть вопрос и пример ответа, и перейдите на нужный экран. Пример: Makine ve Elektrik B2B.','The questions to ask when planning an event from start to finish, in order. Tap a stage to see the question and a sample answer, then jump to the right screen. Sample: Makine ve Elektrik B2B.'),go:T4('Ekrana git','Ekranga oʻtish','Перейти к экрану','Go to screen'),lock:T4('Rolünüz bu ekranı açmaz','Rolingiz bu ekranni ochmaydi','Ваша роль не открывает этот экран','Your role cannot open this screen')};
+const plShort=s=>s.split(/;|\. /)[0].replace(/\.$/,'')+'.';
 function vPlan(){
- const e=EV.find(x=>x.id===PLN.ev)||EV[1],done=PQ.filter(q=>q.s<=e.st),nx=PQ.find(q=>q.s>e.st),mine=PQ.filter(q=>q.s>e.st&&(ROLE==='yon'||q.r===ROLE));
- const evs=['gida','tekstil','makine','insaat'].map(id=>EV.find(x=>x.id===id)).filter(Boolean);
- const row=(q,i)=>{const ok=q.s<=e.st,isNx=q===nx,ch=ok?q.a(e).filter(c=>c[1]!==undefined&&c[1]!==null&&c[1]!==''):[];
-  return `<div class="pq ${ok?'dn':isNx?'nx':''}"><span class="n">${ok?ik('pck','ik-16'):i+1}</span><div style="min-width:0">
-   <div class="pqt"><h3>${q.q[L]}</h3><span style="display:flex;gap:6px;flex-wrap:wrap">${ok?`<span class="pill ok">${PLX.dn[L]}</span>`:`<span class="pill ${isNx?'wr':'mu'}">${PLX.wait[L]} · ${ST[L][q.s]}</span>`}<span class="pill ${q.r===ROLE?'':'mu'}" style="${q.r===ROLE?'':''}">${RK[q.r].n[L]}</span></span></div>
-   <p class="hint">${q.h[L]}</p>
-   ${ok?`<div class="ans">${q.x(e)[L]}</div>${ch.length?`<div class="chs">${ch.map(c=>`<span>${c[0][L]} <b>${typeof c[1]==='object'?c[1][L]:c[1]}</b></span>`).join('')}</div>`:''}`:''}
-   <div class="lk">${q.go.map(k=>canR(ROLE,k)?`<a class="btn" href="#${k}" style="font-size:.76rem">${ik((ROUTES.find(x=>x[0]===k)||[])[1]||'gorev','ik-16')}${t(k)}</a>`:`<span class="pill mu" title="${PLX.nolock[L]}">${t(k)}</span>`).join('')}</div>
-  </div></div>`};
- let idx=0;
- return head('uz-plan')+`
- <div class="note">${ik('plan','ik-16')}<span style="flex:1"><b>${e.n}</b> · ${e.city} · ${e.d} · ${PLS[e.src][L]}</span></div>
- <div class="c" style="margin-bottom:14px;padding:10px 12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="gl" style="margin:0">${PLX.ev[L]}</span><div class="seg">${evs.map(x=>`<button type="button" data-plev="${x.id}" class="${x.id===e.id?'on':''}">${x.n.split(' ')[0]}</button>`).join('')}</div><span style="margin-left:auto">${stp(e.st)}</span></div>
- <div class="grid g4" style="margin-bottom:14px">
-  <div class="c kp"><small>${PLX.stg[L]}</small><b style="font-size:1.35rem;margin-top:8px">${ST[L][e.st]}</b><span>${e.st+1} / ${ST.tr.length}</span></div>
-  <div class="c kp"><small>${PLX.ans[L]}</small><b>${done.length} / ${PQ.length}</b><span>${PLX.q[L]}</span></div>
-  <div class="c kp"><small>${PLX.nx[L]}</small><b style="font-size:1.05rem;line-height:1.3;margin-top:8px">${nx?nx.q[L]:PLX.all[L]}</b><span>${nx?RK[nx.r].n[L]:''}</span></div>
-  <div class="c kp"><small>${PLX.mine[L]}</small><b>${mine.length}</b><span>${RK[ROLE].n[L]}</span></div>
- </div>
- <div class="c" style="margin-bottom:14px"><h2>${PLX.jr[L]}</h2><div class="plt" style="margin-top:10px">${ST[L].map((s,i)=>`<div class="${i<e.st?'pd':i===e.st?'pc':''}"><i></i>${s}</div>`).join('')}</div></div>
- <div class="grid" style="gap:14px">${PLP.map((p,pi)=>{const qs=PQ.filter(q=>q.ph===pi),dn=qs.filter(q=>q.s<=e.st).length;
-  return `<div class="c"><div class="ch"><div><h2>${pi+1} · ${p[L]}</h2><p class="cs">${qs.length} ${PLX.q[L]}</p></div><div class="r"><span class="pill ${dn===qs.length?'ok':dn?'wr':'mu'}">${dn} / ${qs.length}</span></div></div>${qs.map(q=>row(q,PQ.indexOf(q))).join('')}</div>`}).join('')}</div>`}
+ const e=EV.find(x=>x.id==='makine')||EV[1];
+ return head('uz-plan')+`<p class="pl-in">${PLX.intro[L]}</p><div class="pl">${PLP.map((p,pi)=>{const qs=PQ.filter(q=>q.ph===pi);
+  return `<details class="pls" ${pi===0?'open':''}><summary><span class="pln">${pi+1}</span><b>${p[L]}</b><span class="plc">${qs.length}</span><svg class="fzi" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="plb">${qs.map((q,qi)=>{const k=q.go.find(k=>canR(ROLE,k));
+   return `<details class="plq" ${qi===0?'open':''}><summary>${q.q[L]}</summary><p>${plShort(q.x(e)[L])}</p>${k?`<a class="btn p" href="#${k}" style="font-size:.78rem">${PLX.go[L]} · ${t(k)}</a>`:`<span class="cs">${PLX.lock[L]}</span>`}</details>`}).join('')}</div></details>`}).join('')}</div>`}
 V['uz-plan']=vPlan;
 Object.keys(RA_).forEach(k=>{if(!RA_[k].includes('uz-plan'))RA_[k].push('uz-plan')});
-document.addEventListener('click',e=>{const b=e.target.closest('[data-plev]');if(!b)return;PLN.ev=b.dataset.plev;render()});
